@@ -59,8 +59,16 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+//option 01
+    //    $data['category']=$category;
+    //    return view('backend.category.show',$data);
+//option 02
+      //return view('backend.category.show',['category'=>$category]);
+//option 03
+        return view('backend.category.show',compact('category'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
