@@ -78,7 +78,14 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+//option 01
+    //    $data['category']=$category;
+    //    return view('backend.category.edit',$data);
+//option 02
+      //return view('backend.category.edit',['category'=>$category]);
+//option 03
+       return view('backend.category.edit',compact('category'));
+        
     }
 
     /**
@@ -89,8 +96,19 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
-    {
-        //
+    { 
+        // dd($request->all());
+        //   $data['name']= $request->name;
+        //   $data['description']=$request->description;
+        //   $category->update($data);
+
+        // Category::where('id',$category->id)->update([
+        //     'name'=>$request->name,
+        //     'description'=>$request->description,
+        // ]);
+
+        $category->update($request->all());
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -101,6 +119,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index');
     }
 }
