@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryFormRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -39,21 +42,40 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryFormRequest $request)
     {
 
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     
+        // ],[
+        //      'name.required'=>"Name must be filled up.",
+        //      'description.required'=> "Description filled must be required."
+        // ]);
         // dd($request->all());
         // $data['name']= $request->name;
         // $data['description']=$request->description;
+        $request->validated();
+
         Category::create([
             'name'=>$request->name,
             'description'=>$request->description,
         ]);
-        return redirect()->route('categories.index');
+
+        // OPTION 01
+       // $request->session()->flash('success','Category created successfully');
+
+        // OPTION 02
+        //session()->flash('success','Category created successfully');
+
+        // OPTION 03
+        //Session::flash('success','Category created successfully');
+
+        // OPTION 03
+        //Session::flash('success','Category created successfully');
+
+        // OPTION 04
+        return redirect()->route('categories.index')->with('success','Category created successfully');
     }
 
     /**
@@ -100,7 +122,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+
+    public function update(CategoryFormRequest $request, Category $category)
     { 
         // dd($request->all());
         //   $data['name']= $request->name;
@@ -111,7 +134,7 @@ class CategoryController extends Controller
         //     'name'=>$request->name,
         //     'description'=>$request->description,
         // ]);
-
+        $request->validate();
         $category->update($request->all());
         return redirect()->route('categories.index');
     }
@@ -127,4 +150,5 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index');
     }
+ 
 }
