@@ -41,6 +41,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ]);
         // dd($request->all());
         // $data['name']= $request->name;
         // $data['description']=$request->description;

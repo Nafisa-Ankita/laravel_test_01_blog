@@ -5,7 +5,7 @@
 <div class="row">
     
     <div class="col-md-6">
-        <a class="btn btn-info btn-sm" href="{{ route('categories.create') }}">All Categories</a>
+        <a class="btn btn-info btn-sm" href="{{ route('categories.create') }}">Create Categories</a>
         <h1>Create Category</h1>
        <table class="table table-bordered table-hover table-striped">
         <thead>
